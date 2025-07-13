@@ -8,7 +8,7 @@
     "test:customer:logout": "npx playwright test --config=playwright.config.js tests/Customer/customerLogout.test.js --headed",
     "test:add:customer": "npx playwright test --config=playwright.config.js tests/Manager/addCustomer.test.js --headed",
     "test:delete:customer": "npx playwright test --config=playwright.config.js tests/Manager/deleteCustomer.test.js --headed",
-    "test:deposit:customer": "npx playwright test --config=playwright.config.js tests/Customer/customerDeposit.test.js --headed",
+    "test:deposit:customer": "npx playwright test --config=playwright.config.js tests/Customer/customerDeposit.test.js --headed"
   },
   "keywords": [],
   "author": "",
