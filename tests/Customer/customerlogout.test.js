@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import * as loginPage from '../PageObject/loginPage.js';
+import * as loginPage from '../pageObject/loginPage.js';
 import * as logoutPage from '../PageObject/logoutPage.js';
 
 test('should launch the customer login screen', async ({ page,context}) => {

@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import * as loginPage from '../pageObject/loginPage.js';
-import * as managerPage from '../pageObject/ManagerPage.js';
+import * as managerPage from '../PageObject/ManagerPage.js';
 
 test.describe('Manager Add Customer Tests', () => {
   
@@ -12,8 +12,8 @@ test.describe('Manager Add Customer Tests', () => {
 
   test('should launch the manager login screen', async ({ page }) => {
     const randomId = Math.floor(Math.random() * 1000);
-    const firstName = `John${randomId}`;
-    const lastName = `Doe${randomId}`;
+    const firstName = `rumana${randomId}`;
+    const lastName = `jahan${randomId}`;
     const postCode = `${randomId}XYZ`;
     await managerPage.addCustomer(page, firstName, lastName, postCode);
   });
