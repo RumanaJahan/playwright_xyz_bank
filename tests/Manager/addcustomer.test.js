@@ -1,9 +1,21 @@
 import { test, expect } from '@playwright/test';
-import * as LoginPage from '../PageObject/LoginPage.js';
-import * as ManagerPage from '../PageObject/ManagerPage.js';
+import * as loginPage from '../pageObject/loginPage.js';
+import * as managerPage from '../pageObject/ManagerPage.js';
 
-test('should launch the manager login screen', async ({ page,context}) => {
-    await LoginPage.launchxyzbank(page);
-    await LoginPage.launchmanagerlogin(page);
-    await ManagerPage.addcustomer(page);
+test.describe('Manager Add Customer Tests', () => {
+  
+  // Setup: Launch bank site and go to manager login before each test
+  test.beforeEach(async ({ page }) => {
+    await loginPage.launchXyzBank(page);
+    await loginPage.launchManagerLogin(page);
   });
+
+  test('should launch the manager login screen', async ({ page }) => {
+    const randomId = Math.floor(Math.random() * 1000);
+    const firstName = `John${randomId}`;
+    const lastName = `Doe${randomId}`;
+    const postCode = `${randomId}XYZ`;
+    await managerPage.addCustomer(page, firstName, lastName, postCode);
+  });
+
+});

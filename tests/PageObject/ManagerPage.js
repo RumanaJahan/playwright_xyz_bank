@@ -6,45 +6,29 @@ import { expect, devices, chromium } from '@playwright/test';
  //LAUNCH SPECIFIC PAGES
  //--------------------------------------------------------------------------------------------------------------------------
 
- export async function addcustomer(page) 
- {
+export async function addCustomer(page, firstName, lastName, postCode) {
+  // Click on "Add Customer" to open the form
+  await page.locator('button[ng-click="addCust()"]').click();
 
-    page.once('dialog', async dialog => {
-    console.log(`Dialog message: ${dialog.message()}`);
-    await dialog.accept();
-  });
-   
-   // Click on Add Cutomer button
-   await page.locator('button[ng-click="addCust()"]').click();
-   
-   // Fill in customer details
-   
-   
-  const firstName = 'rum';
-   const lastName = 'jhum';
-   const postCode = '12345';
-   
-   
-   await page.locator('input[ng-model="fName"]').fill(firstName);
-   await page.locator('input[ng-model="lName"]').fill(lastName);
-   await page.locator('input[ng-model="postCd"]').fill(postCode);
-   
-   await page.waitForTimeout(500); // Let Angular finish
-
-   // Dialog handle
-  // const [dialog] = await Promise.all([
-  // page.waitForEvent('dialog'),
-  // page.locator('button[type="submit"]').click()
-  //]);
-
-   console.log(`Dialog message: ${dialog.message()}`);
-   await dialog.accept();
-   await page.waitForTimeout(500);
- 
- }
+  // Fill in form fields (simulate user typing to trigger Angular binding)
+  await page.locator('input[ng-model="fName"]').fill(firstName);
+  await page.locator('input[ng-model="lName"]').fill(lastName);
+  await page.locator('input[ng-model="postCd"]').fill(postCode);
 
 
-export async function deletecustomer(page, firstName, lastName) {
+  // Click submit and wait for alert dialog
+  const [dialog] = await Promise.all([
+    page.waitForEvent('dialog', { timeout: 3000 }),
+    page.locator('button[type="submit"]').click()
+  ]);
+
+  console.log(`Dialog message: ${dialog.message()}`);
+  await dialog.accept();
+}
+
+
+
+export async function deleteCustomer(page, firstName, lastName) {
   // Go to "Customers" tab
   await page.locator('button[ng-click="showCust()"]').click();
 

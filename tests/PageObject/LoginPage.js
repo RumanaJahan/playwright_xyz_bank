@@ -6,7 +6,7 @@ import { expect, devices, chromium } from '@playwright/test';
  //LAUNCH SPECIFIC PAGES
  //--------------------------------------------------------------------------------------------------------------------------
 
- export async function launchxyzbank(page) 
+ export async function launchXyzBank(page) 
  {
    const nav = await page.goto('#/login');
    const xyzurl = page.url();
@@ -19,7 +19,7 @@ import { expect, devices, chromium } from '@playwright/test';
  }
 
  // Select random username
-export async function getcustomername() {
+  export async function getcustomername() {
   const customernamearray = [
     'Hermoine Granger',
     'Harry Potter',
@@ -31,9 +31,8 @@ export async function getcustomername() {
   return customernamearray[randomIndex];
 }
 
- export async function launchcustomerlogin(page) 
+ export async function launchCustomerLogin(page) 
  {
-  await launchxyzbank(page);  
   const customerButton = page.locator('button[ng-click="customer()"]');
   
   //Click the Login button
@@ -52,11 +51,13 @@ export async function getcustomername() {
   
   await expect(page.locator('.fontBig')).toHaveText(new RegExp(customerName));
   console.log(`Logged in as: ${customerName}`);
+  
+  // Return the selected customer name for further use
+  return customerName; 
  }
 
- export async function launchmanagerlogin(page) 
+ export async function launchManagerLogin(page) 
  {
-  await launchxyzbank(page);  
   const managerLoginBtn = page.locator('button[ng-click="manager()"]');
   await managerLoginBtn.click();
   

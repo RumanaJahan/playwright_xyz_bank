@@ -1,9 +1,31 @@
 import { test, expect } from '@playwright/test';
-import * as LoginPage from '../PageObject/LoginPage.js';
-import * as ManagerPage from '../PageObject/ManagerPage.js';
+import * as loginPage from '../pageObject/loginPage.js';
+import * as managerPage from '../pageObject/ManagerPage.js';
 
-test('should launch the manager login screen', async ({ page,context}) => {
-    await LoginPage.launchxyzbank(page);
-    await LoginPage.launchmanagerlogin(page);
-    await ManagerPage.deletecustomer(page, 'rum', 'jhum');
+function generateRandomCustomer() {
+  const id = Math.floor(Math.random() * 10000);
+  return {
+    firstName: `AutoFirst${id}`,
+    lastName: `AutoLast${id}`,
+    postCode: `${id}PC`
+  };
+}
+
+test.describe('Manager Customer Management', () => {
+
+  test('should add and then delete a customer dynamically', async ({ page }) => {
+    // Generate customer data
+    const customer = generateRandomCustomer();
+
+    // Launch app and login as manager
+    await loginPage.launchXyzBank(page);
+    await loginPage.launchManagerLogin(page);
+
+    // Add the customer dynamically
+    await managerPage.addCustomer(page, customer.firstName, customer.lastName, customer.postCode);
+
+    // Delete the same customer
+    await managerPage.deleteCustomer(page, customer.firstName, customer.lastName);
   });
+
+});

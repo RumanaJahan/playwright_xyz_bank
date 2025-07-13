@@ -1,8 +1,8 @@
 import { test, expect } from '@playwright/test';
-import * as LoginPage from '../PageObject/LoginPage.js';
+import * as loginPage from '../PageObject/loginPage.js';
 
 
 test('should launch the manager login screen', async ({ page,context}) => {
-    await LoginPage.launchxyzbank(page);
-    await LoginPage.launchmanagerlogin(page);
+    await loginPage.launchXyzBank(page);
+    await loginPage.launchManagerLogin(page);
   });

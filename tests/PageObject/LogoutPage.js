@@ -6,10 +6,17 @@ import { expect, devices, chromium } from '@playwright/test';
  //LAUNCH SPECIFIC PAGES
  //----------
 
- export async function customerlogout(page) 
+ export async function customerLogout(page) 
  {
-   const logoutBtn = page.locator('button[ng-click="byebye()"]');
-   await expect(logoutBtn).toBeVisible(); // optional check
-   await logoutBtn.click();
-   await expect(page).toHaveURL(/#\/customer/);
+  //Locate the logout button 
+  const logoutButton = page.locator('button[ng-click="byebye()"]');
+  
+  //Verifies that the logout button is visible
+  await expect(logoutButton).toBeVisible(); 
+  
+  //Click the logout button
+  await logoutButton.click();
+  
+  //Verify that the URL has changed to the customer landing route after logout
+  await expect(page).toHaveURL(/#\/customer/);
  }
