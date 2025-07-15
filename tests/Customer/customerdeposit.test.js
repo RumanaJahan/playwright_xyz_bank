@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import * as loginPage from '../pageObject/loginPage.js';
-import { depositAmount } from '../pageObject/CustomerDeposit.js';
+import { depositAmount } from '../pageObject/customerDeposit.js';
 
 test('Customer deposit flow', async ({ page }) => {
   

@@ -1,7 +1,7 @@
 // This file contains pre-written test actions which can be reused on multiple test cases
 //--------------------------------------------------------------------------------------------------------------------------
 import { expect, devices, chromium } from '@playwright/test';
-
+import { customerNameArray } from '../data/customerData.js'; 
  //--------------------------------------------------------------------------------------------------------------------------
  //LAUNCH SPECIFIC PAGES
  //--------------------------------------------------------------------------------------------------------------------------
@@ -19,16 +19,12 @@ import { expect, devices, chromium } from '@playwright/test';
  }
 
  // Select random username
-  export async function getcustomername() {
-  const customernamearray = [
-    'Hermoine Granger',
-    'Harry Potter',
-    'Ron Weasly',
-    'Albus Dumbledore',
-    'Neville Longbottom',
-  ];
-  const randomIndex = Math.floor(Math.random() * customernamearray.length);
-  return customernamearray[randomIndex];
+  export async function getCustomerName() {
+  if (customerNameArray.length === 0) {
+    throw new Error('Customer name array is empty');
+  }
+  const randomIndex = Math.floor(Math.random() * customerNameArray.length);
+  return customerNameArray[randomIndex];
 }
 
  export async function launchCustomerLogin(page) 
@@ -43,7 +39,7 @@ import { expect, devices, chromium } from '@playwright/test';
   const userSelect = page.locator('select#userSelect');
   await expect(userSelect).toBeVisible();
   
-  const customerName = await getcustomername();
+  const customerName = await getCustomerName();
   await userSelect.selectOption({ label: customerName });
 
   const loginButton = page.locator('button[type="submit"]');

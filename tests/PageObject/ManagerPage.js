@@ -5,7 +5,7 @@ import { expect, devices, chromium } from '@playwright/test';
  //--------------------------------------------------------------------------------------------------------------------------
  //LAUNCH SPECIFIC PAGES
  //--------------------------------------------------------------------------------------------------------------------------
-
+/*
 export async function addCustomer(page, firstName, lastName, postCode) {
   // Click on "Add Customer" to open the form
   await page.locator('button[ng-click="addCust()"]').click();
@@ -24,6 +24,39 @@ export async function addCustomer(page, firstName, lastName, postCode) {
 
   console.log(`Dialog message: ${dialog.message()}`);
   await dialog.accept();
+}
+*/
+
+export async function addCustomer(page, firstName, lastName, postCode) {
+  // Step 1: Open Add Customer form
+  await page.locator('button[ng-click="addCust()"]').click();
+
+  // Step 2: Fill in the form
+  await page.getByPlaceholder('First Name').fill(firstName);
+  await page.getByPlaceholder('Last Name').fill(lastName);
+  await page.getByPlaceholder('Post Code').fill(postCode);
+
+  // Step 3: Wait for Angular binding to settle
+  await page.getByPlaceholder('Post Code').press('Tab');
+  await page.waitForTimeout(300); // allow UI to stabilize
+
+  // Step 4: Prepare dialog handler BEFORE clicking the button
+  const dialogPromise = new Promise((resolve) => {
+    page.once('dialog', async (dialog) => {
+      const message = dialog.message();
+      console.log(`✅ Dialog appeared: ${message}`);
+      await dialog.accept();
+      resolve(message);
+    });
+  });
+
+  // Step 5: Click the submit button
+  
+  const submitButton = page.locator('button[type="submit"]');
+  submitButton.click();
+  // Step 6: Return the dialog message
+  const dialogMessage = await dialogPromise;
+  return dialogMessage;
 }
 
 
