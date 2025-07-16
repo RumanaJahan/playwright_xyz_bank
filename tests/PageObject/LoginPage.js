@@ -54,8 +54,8 @@ import { customerNameArray } from '../data/customerData.js';
 
  export async function launchManagerLogin(page) 
  {
-  const managerLoginBtn = page.locator('button[ng-click="manager()"]');
-  await managerLoginBtn.click();
+  const managerLoginButton = page.locator('button[ng-click="manager()"]');
+  await managerLoginButton.click();
   
   //Verify URL after login
   await expect(page).toHaveURL(/manager/);
