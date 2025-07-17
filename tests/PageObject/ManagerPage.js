@@ -5,10 +5,11 @@ import { expect, devices, chromium } from '@playwright/test';
  //--------------------------------------------------------------------------------------------------------------------------
  //LAUNCH SPECIFIC PAGES
  //--------------------------------------------------------------------------------------------------------------------------
-/*
+
 export async function addCustomer(page, firstName, lastName, postCode) {
   // Click on "Add Customer" to open the form
-  await page.locator('button[ng-click="addCust()"]').click();
+  //await page.locator('button[ng-click="addCust()"]').click();
+  await page.getByRole('button', { name: 'Add Customer' }).click();
 
   // Fill in form fields (simulate user typing to trigger Angular binding)
   await page.locator('input[ng-model="fName"]').fill(firstName);
@@ -18,18 +19,22 @@ export async function addCustomer(page, firstName, lastName, postCode) {
 
   // Click submit and wait for alert dialog
   const [dialog] = await Promise.all([
-    page.waitForEvent('dialog', { timeout: 3000 }),
-    page.locator('button[type="submit"]').click()
-  ]);
+  page.waitForEvent('dialog', { timeout: 3000 }),
+  page.locator('button[type="submit"]').click()
+ ]);
 
   console.log(`Dialog message: ${dialog.message()}`);
   await dialog.accept();
-}
-*/
 
+
+
+}
+
+/*
 export async function addCustomer(page, firstName, lastName, postCode) {
   // Step 1: Open Add Customer form
   await page.locator('button[ng-click="addCust()"]').click();
+  
 
   // Step 2: Fill in the form
   await page.getByPlaceholder('First Name').fill(firstName);
@@ -59,6 +64,7 @@ export async function addCustomer(page, firstName, lastName, postCode) {
   return dialogMessage;
 }
 
+*/
 
 
 export async function deleteCustomer(page, firstName, lastName) {
