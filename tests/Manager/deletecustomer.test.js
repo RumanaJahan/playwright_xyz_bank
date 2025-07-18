@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import * as loginPage from '../pageObject/loginPage.js';
-import * as managerPage from '../PageObject/ManagerPage.js';
+import * as managerPage from '../pageObject/managerPage.js';
 
 function generateRandomCustomer() {
   const id = Math.floor(Math.random() * 10000);
