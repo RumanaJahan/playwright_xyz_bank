@@ -32,6 +32,8 @@ export default defineConfig({
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
     screenshot : 'on',
+    //Set viewport for consistent test results
+    viewport: { width: 1920, height: 1080 }
   },
 
   /* Configure projects for major browsers */

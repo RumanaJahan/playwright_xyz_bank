@@ -6,29 +6,45 @@ import { expect, devices, chromium } from '@playwright/test';
  //LAUNCH SPECIFIC PAGES
  //--------------------------------------------------------------------------------------------------------------------------
 
+// Add Customer function
 export async function addCustomer(page, firstName, lastName, postCode) {
   // Click on "Add Customer" to open the form
-  //await page.locator('button[ng-click="addCust()"]').click();
   await page.getByRole('button', { name: 'Add Customer' }).click();
-
-  // Fill in form fields (simulate user typing to trigger Angular binding)
+  
+  
+  //Fill in form fields (simulate user typing to trigger Angular binding)
   await page.locator('input[ng-model="fName"]').fill(firstName);
   await page.locator('input[ng-model="lName"]').fill(lastName);
   await page.locator('input[ng-model="postCd"]').fill(postCode);
 
+  
+  // Select the Add Customer form using role-based locator
+  //const form = page.getByRole('form', { name: 'Add Customer' });
 
-  // Click submit and wait for alert dialog
-  const [dialog] = await Promise.all([
-  page.waitForEvent('dialog', { timeout: 3000 }),
-  page.locator('button[type="submit"]').click()
- ]);
 
+  //Set up dialog handler before clicking submit
+  await page.on('dialog', async (dialog) => {
   console.log(`Dialog message: ${dialog.message()}`);
+  expect(dialog.message()).toContain('Customer added successfully');
   await dialog.accept();
+    });
 
+  //Click the submit button
+  await page.locator('button[type="submit"]').click();
+  //await form.getByRole('button', { name: 'Add Customer' }).click();
 
+  //Click the button to view the list of all customers.
+  await page.getByRole('button', { name: /Customers/ }).click();
+      
+  //Wait for the customer table to be visible.
+  await expect(page.getByRole('table')).toBeVisible();
 
+  //Assert the row comes with new created customer
+  const customerRow = page.locator('table tbody tr').filter({ hasText: `${firstName} ${lastName}` });
+  await expect(customerRow).toBeVisible();
 }
+
+
 
 /*
 export async function addCustomer(page, firstName, lastName, postCode) {

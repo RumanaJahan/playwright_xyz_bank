@@ -8,14 +8,16 @@ import { customerNameArray } from '../data/customerData.js';
 
  export async function launchXyzBank(page) 
  {
-   const nav = await page.goto('#/login');
-   const xyzurl = page.url();
-   await expect(page).toHaveURL(xyzurl);
-   console.log('Current url is:', xyzurl);
-   await page.setViewportSize({ width: 1920, height: 1080 });
-   //Verify and print the page title
-   const xyztitle = await page.title();
-   console.log('Page title:', xyztitle);
+   // Go to the login page
+   await page.goto('#/login');
+
+   // Assert and log current URL
+   await expect(page).toHaveURL(/.*#\/login/);
+   console.log('Navigated to:', page.url());
+
+   // Get and log page title
+   const title = await page.title();
+   console.log('Page title:', title);
  }
 
  // Select random username
@@ -27,30 +29,42 @@ import { customerNameArray } from '../data/customerData.js';
   return customerNameArray[randomIndex];
 }
 
- export async function launchCustomerLogin(page) 
- {
+export async function launchCustomerLogin(page) {
+  // Locate the "Customer Login" button using its Angular click handler
   const customerButton = page.locator('button[ng-click="customer()"]');
   
-  //Click the Login button
+  // Click the "Customer Login" button
   await customerButton.click();
 
+  // Verify that the URL now contains "customer" (indicating navigation success)
   await expect(page).toHaveURL(/customer/);
 
+  // Locate the customer dropdown (user selection)
   const userSelect = page.locator('select#userSelect');
+
+  // Ensure the dropdown is visible before interacting with it
   await expect(userSelect).toBeVisible();
   
+  // Retrieve a customer name to select (likely from a helper function)
   const customerName = await getCustomerName();
+
+  // Select the customer from the dropdown using their name as the label
   await userSelect.selectOption({ label: customerName });
 
+  // Locate the Login button and click it (submit the form)
   const loginButton = page.locator('button[type="submit"]');
   loginButton.click();
-  
+
+  // Verify that the page now displays the logged-in customer's name
   await expect(page.locator('.fontBig')).toHaveText(new RegExp(customerName));
+
+  // Log the name of the logged-in customer for reference
   console.log(`Logged in as: ${customerName}`);
   
-  // Return the selected customer name for further use
+  // Return the customer name so it can be reused in other test steps
   return customerName; 
- }
+}
+
 
  export async function launchManagerLogin(page) 
  {

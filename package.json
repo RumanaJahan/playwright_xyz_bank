@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test:customer:login": "npx playwright test --config=playwright.config.js tests/Customer/customerLogin.test.js --headed",
-    "test:manager:login": "npx playwright test --config=playwright.config.js tests/Manager/managerLogin.test.js --headed",
-    "test:customer:logout": "npx playwright test --config=playwright.config.js tests/Customer/customerLogout.test.js --headed",
-    "test:add:customer": "npx playwright test --config=playwright.config.js tests/Manager/addCustomer.test.js --headed",
-    "test:delete:customer": "npx playwright test --config=playwright.config.js tests/Manager/deleteCustomer.test.js --headed",
-    "test:deposit:customer": "npx playwright test --config=playwright.config.js tests/Customer/customerDeposit.test.js --headed"
+    "test:customer:login": "npx playwright test --config=playwright.config.js tests/customer/customerLogin.test.js --headed",
+    "test:manager:login": "npx playwright test --config=playwright.config.js tests/manager/managerLogin.test.js --headed",
+    "test:customer:logout": "npx playwright test --config=playwright.config.js tests/customer/customerLogout.test.js --headed",
+    "test:add:customer": "npx playwright test --config=playwright.config.js tests/manager/addCustomer.test.js --headed",
+    "test:delete:customer": "npx playwright test --config=playwright.config.js tests/manager/deleteCustomer.test.js --headed",
+    "test:deposit:customer": "npx playwright test --config=playwright.config.js tests/customer/customerDeposit.test.js --headed"
   },
   "keywords": [],
   "author": "",
