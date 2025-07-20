@@ -5,3 +5,4 @@ import * as loginPage from '../pageObject/loginPage.js';
 test('should launch the customer login screen', async ({ page }) => {
   await loginPage.launchCustomerLogin(page);
 });
+

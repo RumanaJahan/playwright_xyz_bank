@@ -21,7 +21,7 @@ import { customerNameArray } from '../data/customerData.js';
  }
 
  // Select random username
-  export async function getCustomerName() {
+export async function getCustomerName() {
   if (customerNameArray.length === 0) {
     throw new Error('Customer name array is empty');
   }
@@ -74,10 +74,7 @@ export async function launchCustomerLogin(page) {
   //Verify URL after login
   await expect(page).toHaveURL(/manager/);
   
-  //Verify all buttons are visible
-  await expect(page.locator('button[ng-click="addCust()"]')).toBeVisible();
-  
-  //Verify button have correct text
+  //Verify all buttons are visible and have correct text
   await expect(page.getByRole('button', { name: 'Add Customer' })).toBeVisible();
   await expect(page.getByRole('button', { name: 'Open Account' })).toBeVisible();
   await expect(page.getByRole('button', { name: 'Customers' })).toBeVisible();

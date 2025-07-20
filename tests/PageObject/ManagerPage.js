@@ -17,10 +17,6 @@ export async function addCustomer(page, firstName, lastName, postCode) {
   await page.locator('input[ng-model="lName"]').fill(lastName);
   await page.locator('input[ng-model="postCd"]').fill(postCode);
 
-  
-  // Select the Add Customer form using role-based locator
-  //const form = page.getByRole('form', { name: 'Add Customer' });
-
 
   //Set up dialog handler before clicking submit
   await page.on('dialog', async (dialog) => {

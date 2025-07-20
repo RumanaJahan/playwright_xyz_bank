@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '../utils/baseTest.js'; 
 import * as loginPage from '../pageObject/loginPage.js';
 import * as managerPage from '../pageObject/managerPage.js';
 
